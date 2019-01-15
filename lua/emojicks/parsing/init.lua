@@ -130,7 +130,13 @@ function parser_mt:__newindex(key, value)
     else 
         return rawset(self, key, value)
     end
-end 
+end
+
+function rule(r) return setmetatable({}, {__index = function(t, R) 
+    local v = r(R)
+    t[R] = v 
+    return v 
+end}) end
 
 --end-module--
 return _ENV
